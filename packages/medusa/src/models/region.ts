@@ -1,24 +1,16 @@
 import {
-  Entity,
   BeforeInsert,
-  Column,
-  DeleteDateColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryColumn,
-  ManyToMany,
+  Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, JoinTable, ManyToMany,
   ManyToOne,
-  OneToMany,
-  JoinTable,
-  JoinColumn,
+  OneToMany, PrimaryColumn, UpdateDateColumn
 } from "typeorm"
 import { ulid } from "ulid"
-import { resolveDbType, DbAwareColumn } from "../utils/db-aware-column"
-
-import { Currency } from "./currency"
+import { DbAwareColumn, resolveDbType } from "../utils/db-aware-column"
 import { Country } from "./country"
-import { PaymentProvider } from "./payment-provider"
+import { Currency } from "./currency"
 import { FulfillmentProvider } from "./fulfillment-provider"
+import { PaymentProvider } from "./payment-provider"
+
 
 @Entity()
 export class Region {
@@ -43,7 +35,8 @@ export class Region {
 
   @OneToMany(
     () => Country,
-    c => c.region
+    c => c.region,
+    { cascade: ['soft-remove'] }
   )
   countries: Country[]
 

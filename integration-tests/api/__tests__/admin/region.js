@@ -133,12 +133,6 @@ describe("/admin/regions", () => {
           },
         ],
         tax_rate: 0,
-        fulfillment_providers: [
-          {
-            id: "test-ful",
-            is_installed: false,
-          },
-        ],
         created_at: expect.any(String),
         updated_at: expect.any(String),
       })

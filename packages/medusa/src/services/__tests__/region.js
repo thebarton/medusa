@@ -388,21 +388,13 @@ describe("RegionService", () => {
 
   describe("delete", () => {
     const regionRepository = MockRepository({
-      findOne: () =>
-        Promise.resolve({
-          id: IdMap.getId("region"),
-          countries: [{ id: "us" }],
-        }),
-    })
-    const countryRepository = MockRepository({
-      findOne: (query) => Promise.resolve(),
+      findOne: () => Promise.resolve({ id: IdMap.getId("region") }),
     })
 
     const regionService = new RegionService({
       manager: MockManager,
       eventBusService,
       regionRepository,
-      countryRepository,
     })
 
     beforeEach(async () => {
@@ -415,7 +407,6 @@ describe("RegionService", () => {
       expect(regionRepository.softRemove).toHaveBeenCalledTimes(1)
       expect(regionRepository.softRemove).toHaveBeenCalledWith({
         id: IdMap.getId("region"),
-        countries: [{ id: "us" }],
       })
     })
   })
